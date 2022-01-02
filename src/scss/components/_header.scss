@@ -1,0 +1,67 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  background-color: #fff;
+
+  &__container {
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  &__left {
+    grid-column: 2 span;
+  }
+
+  &__center {
+    display: flex;
+    grid-column: 8 span;
+    justify-content: center;
+  }
+
+  &__right {
+    display: flex;
+    grid-column: 2 span;
+    justify-content: flex-end;
+  }
+
+  &__logo {
+    display: inline-block;
+
+    img {
+      display: block;
+      width: 60px;
+    }
+  }
+}
+
+.link {
+  &__item {
+    margin-left: 20px;
+  }
+
+  &__btn {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: $color-woodsmoke;
+      transition: all 0.5s ease-in-out;
+    }
+
+    &:hover {
+      svg {
+        stroke: $color-schist;
+      }
+    }
+  }
+}

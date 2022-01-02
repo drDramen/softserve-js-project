@@ -1,0 +1,19 @@
+.cart {
+  &__count {
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 100%;
+    background-color: $color-rosefog;
+    color: $color-rangoongreen;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}

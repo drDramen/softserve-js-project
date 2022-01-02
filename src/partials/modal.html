@@ -1,0 +1,49 @@
+<div class="new-user modal" id="new-user">
+  <div class="modal__body">
+    <form class="modal__area" method="POST">
+      <div class="modal__header">
+        <span class="modal__close"></span>
+      </div>
+      <div class="modal__content">
+        <p>
+          <input
+            class="new-user__field new-user__name"
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Ім'я"
+          />
+        </p>
+        <p>
+          <input
+            class="new-user__field new-user__money"
+            id="money"
+            type="number"
+            name="money"
+            placeholder="Гроші"
+          />
+        </p>
+        <input class="new-user__submit btn-reset" type="submit" value="Створити" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="cart modal" id="cart">
+  <div class="modal__body">
+    <form class="modal__area" action="" method="POST">
+      <div class="modal__header">
+        <span class="modal__close"></span>
+      </div>
+      <div class="modal__content">
+        <table class="cart-items">
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="make-order">
+        <div class="order-price"><span class="price"></span> грн.</div>
+        <button class="make-order-btn btn-reset">Оформити замовлення</button>
+      </div>
+    </form>
+  </div>
+</div>
