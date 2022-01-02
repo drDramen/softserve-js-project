@@ -28,7 +28,7 @@ jobs:
         gulp build
 
     - name: Deploy to GH Page
-            uses: JamesIves/github-pages-deploy-action@4.1.1
-            with:
-              branch: build
-              folder: app
+      uses: JamesIves/github-pages-deploy-action@4.1.1
+      with:
+        branch: build
+        folder: app
