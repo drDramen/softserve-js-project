@@ -58,16 +58,13 @@
   }
 
   &-instock {
-    &__label {
-      position: relative;
-    }
-
     &__field {
       position: absolute;
       appearance: none;
     }
 
     &__content {
+      position: relative;
       padding-right: 45px;
       cursor: pointer;
 

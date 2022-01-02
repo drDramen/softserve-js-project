@@ -3,6 +3,8 @@ const cartLink = document.querySelector(".cart__btn");
 const makeOrder = document.querySelector(".make-order-btn");
 const cartBody = document.querySelector(".cart-items tbody");
 
+let afterOrder = false;
+
 function setCardCount() {
   if (currentUser) {
     cartCount.innerHTML = currentUser.cart.size;
@@ -23,10 +25,11 @@ cartLink.addEventListener("click", renderCart);
 makeOrder.onclick = function (event) {
   event.preventDefault();
   currentUser.cart.checkout();
-
-  closePopup(event.target.closest(".popup"));
-  checkMoney();
-  checkCart();
+  afterOrder = true;
+  // closePopup(event.target.closest(".modal"));
+  setCardCount();
+  renderCatalog(loadingQuantity);
+  renderCart();
 };
 
 function renderCart() {
@@ -71,13 +74,20 @@ function renderCart() {
     document.querySelector(".make-order .price").innerHTML =
       currentUser.cart.totalSum;
   } else {
-    cartBody.innerHTML = `
+    cartBody.innerHTML = afterOrder
+      ? `
+    <tr>
+      <td class="fade"><p style="padding: 30px 14px 80px;
+      font-size: 36px;">Дякуємо за замовлення</p></td>
+    </tr>
+      `
+      : `
       <tr>
-        <td><p style="padding: 30px 14px 80px;
+        <td class="fade"><p style="padding: 30px 14px 80px;
         font-size: 36px;">Порожній кошик</p></td>
       </tr>
-    `;
-
+      `;
+    afterOrder = false;
     const price = document.querySelector(".make-order .price");
     price.innerHTML = "";
     document.querySelector(".make-order").style.display = "none";

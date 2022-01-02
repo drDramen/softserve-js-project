@@ -76,3 +76,17 @@ a {
   font-family: "Playfair Display", serif;
   line-height: 1.15;
 }
+
+.fade {
+  animation: 1.5s fade;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -9,7 +9,7 @@ class User {
     this.getCart();
   }
 
-  showOrderHistory(direction, field) {
+  showOrderHistory(direction = 1, field = 'date') {
     return this.orders.sort((a, b) => {
       if (a[field] > b[field]) {
         return direction;
@@ -19,9 +19,6 @@ class User {
       }
 
       return 0;
-
-      // let compare = (a[field] - b[field]) * direction;
-      // console.log(compare);
     });
   }
 
@@ -30,7 +27,7 @@ class User {
   }
 
   addOrder() {
-    this.orders.push(new Order(this.cart.goods));
+    this.orders.push(new Order(this.cart.goods, this.cart.totalSum));
   }
 }
 

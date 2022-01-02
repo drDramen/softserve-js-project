@@ -1,13 +1,13 @@
-<div class="catalog">
+<div class="catalog" id="catalog">
   <div class="container catalog__container">
     <h2 class="catalog__title title">Каталог</h2>
-    <form class="catalog-filters">
+    <form class="catalog-filters" name="filters">
       <div class="catalog__filter catalog-price">
         <p class="catalog-price__label">Ціна</p>
         <div class="catalog-price__wrap">
           <input
-            class="catalog-price__input catalog-price__input1"
-            type="text"
+            class="catalog-price__input"
+            type="number"
             name="price-min"
             id="price__min"
             value="10"
@@ -15,7 +15,7 @@
           <span class="seprator"></span>
           <input
             class="catalog-price__input"
-            type="text"
+            type="number"
             name="price-max"
             id="price__max"
             value="10000"
@@ -35,8 +35,8 @@
       </div>
       <div class="catalog__filter catalog-sort">
         <select class="catalog-sort__select" name="sort" id="sort">
-          <option value="1" selected>Від дешевид до дорогих</option>
-          <option value="2">Від дорогих до дешевих</option>
+          <option value="1" selected>Від дешевих до дорогих</option>
+          <option value="-1">Від дорогих до дешевих</option>
         </select>
       </div>
     </form>

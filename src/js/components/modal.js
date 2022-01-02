@@ -39,12 +39,13 @@ function closePopup(target) {
   body.style.paddingRight = "";
   header.style.paddingRight = "";
   if (target.closest("#cart")) {
-    clearCart();
-    loadProducts(loadingQuantity);
+    renderCatalog(loadingQuantity);
 
     const price = document.querySelector(".make-order .price");
     price.innerHTML = "";
     document.querySelector(".make-order").style.display = "none";
+    setTimeout(clearCart, 500)
+    // clearCart();
   }
   target.removeEventListener("click", closeFromLock);
 }

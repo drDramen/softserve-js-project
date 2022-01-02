@@ -21,6 +21,8 @@ newUserBtn.addEventListener("click", function (event) {
   newUserMoney.value = "";
   newUserName.style.borderColor = "";
   newUserMoney.style.borderColor = "";
+  setCardCount();
+  renderCatalog(loadingQuantity);
 });
 
 

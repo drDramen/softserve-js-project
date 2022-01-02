@@ -11,7 +11,37 @@
   }
 
   &__link {
+    position: relative;
     color: $color-rangoongreen;
     font: var(--small-font);
+    transition: 0.3s ease;
+
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      width: 0%;
+      height: 1px;
+      background-color: $color-accent-hover;
+      transition: 0.3s ease;
+    }
+
+    &::after {
+      left: 50%;
+    }
+
+    &::before {
+      right: 50%;
+    }
+
+    &:hover {
+      color: $color-accent-hover;
+
+      &::after,
+      &::before {
+        width: 55%;
+      }
+    }
   }
 }
