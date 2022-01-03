@@ -43,6 +43,19 @@
     margin-left: 20px;
   }
 
+  &__status-name {
+    position: absolute;
+    top: 0;
+    right: 135%;
+    min-width: max-content;
+    color: $color-woodsmoke;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      color: $color-schist;
+    }
+  }
+
   &__btn {
     position: relative;
     display: block;

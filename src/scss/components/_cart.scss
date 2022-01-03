@@ -16,4 +16,12 @@
     font-size: 12px;
     line-height: 1.5;
   }
+
+  .error {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    color: $color-error;
+    font-size: 14px;
+  }
 }

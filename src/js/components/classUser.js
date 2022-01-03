@@ -5,8 +5,6 @@ class User {
     this.money = money;
     this.orders = [];
     this.cart = this.getCart();
-
-    this.getCart();
   }
 
   showOrderHistory(direction = 1, field = 'date') {

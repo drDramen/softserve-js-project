@@ -44,19 +44,17 @@ function closePopup(target) {
     const price = document.querySelector(".make-order .price");
     price.innerHTML = "";
     document.querySelector(".make-order").style.display = "none";
-    setTimeout(clearCart, 500)
-    // clearCart();
+    setTimeout(clearCart, 500);
+    errorMsg.innerHTML = "";
+  }
+  if (target.closest("#new-user")) {
+    newUserName.value = "";
+    newUserMoney.value = "";
+    newUserName.style.borderColor = "";
+    newUserMoney.style.borderColor = "";
   }
   target.removeEventListener("click", closeFromLock);
 }
-
-// function bodyLock() {
-//   if (body.classList.contains("lock")) {
-//     body.classList.remove("lock");
-//   } else {
-//     body.classList.add("lock");
-//   }
-// }
 
 function closeFromLock(e) {
   if (!e.target.closest(".modal__area")) {

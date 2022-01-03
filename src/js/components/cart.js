@@ -2,6 +2,7 @@ const cartCount = document.querySelector(".cart__count");
 const cartLink = document.querySelector(".cart__btn");
 const makeOrder = document.querySelector(".make-order-btn");
 const cartBody = document.querySelector(".cart-items tbody");
+const errorMsg = document.querySelector('.make-order > .error');
 
 let afterOrder = false;
 
@@ -24,12 +25,22 @@ cartLink.addEventListener("click", renderCart);
 
 makeOrder.onclick = function (event) {
   event.preventDefault();
-  currentUser.cart.checkout();
-  afterOrder = true;
-  // closePopup(event.target.closest(".modal"));
-  setCardCount();
-  renderCatalog(loadingQuantity);
-  renderCart();
+
+  try {
+    if (currentUser.name == undefined || currentUser.money == undefined) {
+      throw new Error("Авторизуйтесь!");
+    }
+    if (currentUser.money < currentUser.cart.totalSum) {
+      throw new Error("Не достатньо коштів!");
+    }
+    currentUser.cart.checkout();
+    afterOrder = true;
+    setCardCount();
+    renderCatalog(loadingQuantity);
+    renderCart();
+  } catch (error) {
+    errorMsg.innerHTML = error.message
+  }
 };
 
 function renderCart() {
@@ -41,19 +52,29 @@ function renderCart() {
       cartBody.innerHTML += `
           <tr>
             <td>
-              <img class="cart-item__img" src="${currentItem.mainImg}" alt="${currentItem.name}">
+              <img class="cart-item__img" src="${currentItem.mainImg}" alt="${
+        currentItem.name
+      }">
             </td>
             <td><p>${currentItem.name}</p></td>
-            <td><p>${currentItem.price}<span class="product__price-currency">&nbsp;&#8372;</span></p></td>
+            <td><p>${
+              currentItem.price
+            }<span class="product__price-currency">&nbsp;&#8372;</span></p></td>
             <td>
-              <div class="product__counter counter" style="display: flex">
+              <div class="product__counter counter" style="display: flex" data-id="${
+                currentItem.id
+              }">
               <button class="btn-reset counter__btn counter__dcr" type="button">
                 <svg>
                   <use xlink:href="img/sprite.svg#dcr"></use>
                 </svg>
               </button>
-              <input class="counter__input" type="text" value="${item.quantity}" />
-              <button class="btn-reset counter__btn counter__incr" type="button">
+              <input class="counter__input" type="text" value="${
+                item.quantity
+              }" />
+              <button class="btn-reset counter__btn counter__incr" type="button" ${
+                item.quantity < currentItem.amount || "disabled"
+              }>
                 <svg>
                   <use xlink:href="img/sprite.svg#incr"></use>
                 </svg>
@@ -61,7 +82,9 @@ function renderCart() {
             </div>
             </td>
             <td>
-              <button class="btn-reset cart-item__delete" data-id="${item.id}" type="button">
+              <button class="btn-reset cart-item__delete" data-id="${
+                item.id
+              }" type="button">
                 <svg>
                   <use xlink:href="img/sprite.svg#trash"></use>
                 </svg>
@@ -103,4 +126,71 @@ function renderCart() {
       renderCart();
     });
   });
+  saveToLS(currentUser);
 }
+
+cartBody.addEventListener("click", counterControl);
+
+function counterControl(e) {
+  e.stopPropagation();
+  const counter = e.target.closest(".counter");
+
+  if (counter) {
+    const productId = counter.dataset.id;
+    const counterInput = counter.querySelector(".counter__input");
+    const incr = counter.querySelector(".counter__incr");
+    const dcr = counter.querySelector(".counter__dcr");
+    const productStock = findProduct(productId).amount;
+
+    if (dcr.contains(e.target)) {
+      if (counterInput.value > 1 && counterInput.value <= productStock) {
+        counterInput.value--;
+        incr.disabled = false;
+        currentUser.cart.changeQuantity(productId, counterInput.value);
+      } else {
+        currentUser.cart.removeProduct(productId);
+      }
+      renderCart();
+    } else if (incr.contains(e.target)) {
+      if (counterInput.value < productStock) {
+        counterInput.value++;
+        currentUser.cart.changeQuantity(productId, counterInput.value);
+      }
+      if (counterInput.value == productStock) {
+        incr.disabled = true;
+      }
+      renderCart();
+    }
+    setCardCount();
+  }
+}
+
+cartBody.addEventListener("keypress", (e) => {
+  if (e.target.closest(".counter__input")) {
+    isNumber(e);
+  }
+});
+
+cartBody.addEventListener("change", (e) => {
+  if (e.target.closest(".counter__input")) {
+    const counter = e.target.closest(".counter");
+    const productId = counter.dataset.id;
+    const incr = counter.querySelector(".counter__incr");
+    const productStock = findProduct(productId).amount;
+
+    if (e.target.value == 0) {
+      currentUser.cart.removeProduct(productId);
+      incr.disabled = false;
+    } else if (e.target.value >= productStock) {
+      incr.disabled = true;
+      e.target.value = productStock;
+      currentUser.cart.changeQuantity(productId, e.target.value);
+    } else {
+      incr.disabled = false;
+      currentUser.cart.changeQuantity(productId, e.target.value);
+    }
+
+    setCardCount();
+    renderCart();
+  }
+});

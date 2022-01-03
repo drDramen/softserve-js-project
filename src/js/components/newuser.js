@@ -1,10 +1,9 @@
 const newUserBtn = document.querySelector(".new-user__submit");
+const newUserName = document.querySelector(".new-user__name");
+const newUserMoney = document.querySelector(".new-user__money");
 
 newUserBtn.addEventListener("click", function (event) {
   event.preventDefault();
-
-  const newUserName = document.querySelector(".new-user__name"),
-    newUserMoney = document.querySelector(".new-user__money");
 
   if (newUserName.value == "" || newUserMoney.value == "") {
     newUserName.value == ""
@@ -25,7 +24,18 @@ newUserBtn.addEventListener("click", function (event) {
   renderCatalog(loadingQuantity);
 });
 
-
 function newUser(name, money) {
+  if (currentUser.name == undefined || currentUser.money == undefined) {
+    delete currentUser.id;
+    currentUser = serializingUser(currentUser);
+    currentUser.name = name;
+    currentUser.money = money;
+    saveToLS(currentUser);
+  }
   currentUser = new User(name, money);
+  changeStatusName();
+}
+
+function saveToLS(user) {
+  window.localStorage.setItem("last session", JSON.stringify(user));
 }

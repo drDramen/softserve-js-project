@@ -31,6 +31,7 @@ catalogList.addEventListener("click", (e) => {
       }
     }
     setCardCount();
+    saveToLS(currentUser);
   }
 });
 
@@ -57,6 +58,7 @@ catalogList.addEventListener("input", (e) => {
     }
 
     setCardCount();
+    saveToLS(currentUser);
   }
 });
 
