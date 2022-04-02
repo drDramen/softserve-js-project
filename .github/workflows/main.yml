@@ -1,4 +1,4 @@
-name: NodeJS with Gulp
+name: Some
 
 on:
   pull_request:
@@ -6,9 +6,8 @@ on:
       - opened
 
 jobs:
-  run_if:
-    if: startsWith(github.head_ref, 'gh-pages/')
   build:
+    if: startsWith(github.head_ref, 'gh-pages/')
     runs-on: ubuntu-latest
 
     strategy:
