@@ -1,10 +1,10 @@
 name: NodeJS with Gulp
 
 on:
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ build ]
   pull_request:
-    branches: [ main ]
+    branches: [ build ]
 
 jobs:
   build:
@@ -32,3 +32,4 @@ jobs:
       with:
         branch: build
         folder: app
+        target-folder: project1
