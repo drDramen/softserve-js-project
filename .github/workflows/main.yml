@@ -1,11 +1,10 @@
 name: Some
 
 on:
+  push:
+    branches: [ main, test ]
   pull_request:
-    types:
-      - opened
-    branches:
-      - gh-pages
+    branches: [ main ]
 
 jobs:
   build:
